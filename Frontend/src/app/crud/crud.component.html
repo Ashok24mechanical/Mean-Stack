@@ -1,0 +1,77 @@
+<div class="container">
+    <form action="" method="post" [formGroup]="reactiveform">
+        <div>
+            <h2 *ngIf="!edits">Create Method</h2>
+            <h2 *ngIf="edits">Edit Method</h2>
+        </div>
+        <div class="row g-3 mt-3">
+            <div class="col">
+                <input type="text" formControlName="firstname" class="form-control" placeholder="First name"
+                    aria-label="First name">
+                <div *ngIf="reactiveform.get('firstname').invalid && reactiveform.get('firstname').touched">
+                    <span *ngIf="reactiveform.get('firstname').errors?.['required']"><small>Name is
+                            Required</small></span>
+                </div>
+            </div>
+            <div class="col">
+                <input type="text" formControlName="lastname" class="form-control" placeholder="Last name"
+                    aria-label="Last name">
+            </div>
+        </div>
+        <div class="row g-3 mt-3 mb-3">
+            <div class="col">
+                <input type="email" class="form-control" placeholder="Email" aria-label="First name"
+                    formControlName="email">
+            </div>
+            <div class="col">
+                <select id="nationality" class="form-select" formControlName="nationality">
+                    <option *ngFor="let c of country" [value]="c">{{c}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div *ngFor="let g of genders">
+                <label for="gender" class="ms-2">
+                    <input type="radio" name="" id="" [value]="g" formControlName="gender">
+                    {{g}}</label>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary mt-3" *ngIf="!edits" [disabled]="reactiveform.invalid"
+                (click)="submit(reactiveform.value)">Submit</button>
+            <button class="btn btn-primary mt-3" *ngIf="edits" [disabled]="reactiveform.invalid"
+                (click)="save(reactiveform.value)">Save Changes</button>
+        </div>
+    </form>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Nationality</th>
+            <th>Edit | Delete</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let Data of BackendData">
+        <tr scope="col" *ngFor="let data of Data.user;let i= index">
+            <th>{{i+1}}</th>
+            <td>{{data._id}}</td>
+            <td>{{data.firstname}}</td>
+            <td>{{data.lastname}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.gender}}</td>
+            <td>{{data.nationality}}</td>
+            <td>
+                <button class="btn btn-secondary me-1" (click)="edit(data)">Edit</button>
+                <button class="btn btn-danger ms-1" (click)="deleted(data)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,13 @@
+input.ng-touched.ng-invalid{
+    border:2px solid red;
+    box-shadow: 3px 3px rgba(253, 9, 9, 0.955);
+
+}
+input.ng-touched.ng-valid{
+    border: 2px solid rgba(29, 169, 90, 0.505);
+    box-shadow: 3px 3px rgba(49, 243, 133, 0.505);
+}
+span{
+    color: red;
+}
+
